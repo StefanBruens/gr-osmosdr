@@ -5,7 +5,7 @@
 // suppress Warning 319: No access specifier given for base class 'boost::noncopyable' (ignored).
 #pragma SWIG nowarn=319
 
-%include "gnuradio.i"			// the common stuff
+%include "gnuradio.i"           // the common stuff
 
 //load generated python docstrings
 %include "osmosdr_swig_doc.i"
