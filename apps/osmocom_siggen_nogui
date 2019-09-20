@@ -20,25 +20,28 @@
 # Boston, MA 02110-1301, USA.
 #
 
+from __future__ import absolute_import
+from __future__ import print_function
 from gnuradio import gr
 from osmosdr import osmocom_siggen_base as osmocom_siggen
 import sys
+from six.moves import input
 
 def main():
     if gr.enable_realtime_scheduling() != gr.RT_OK:
-        print "Note: failed to enable realtime scheduling, continuing"
+        print("Note: failed to enable realtime scheduling, continuing")
 
     # Grab command line options and create top block
     try:
         (options, args) = osmocom_siggen.get_options()
         tb = osmocom_siggen.top_block(options, args)
 
-    except RuntimeError, e:
-        print e
+    except RuntimeError as e:
+        print(e)
         sys.exit(1)
 
     tb.start()
-    raw_input('Press Enter to quit: ')
+    input('Press Enter to quit: ')
     tb.stop()
     tb.wait()
 

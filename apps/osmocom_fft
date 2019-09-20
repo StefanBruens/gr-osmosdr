@@ -20,6 +20,8 @@
 # Boston, MA 02110-1301, USA.
 #
 
+from __future__ import absolute_import
+from __future__ import print_function
 SAMP_RANGE_KEY = 'samp_range'
 SAMP_RATE_KEY = 'samp_rate'
 GAIN_KEY = lambda x: 'gain:'+x
@@ -117,7 +119,7 @@ class app_top_block(stdgui2.std_top_block, pubsub):
         try:
             self.src.get_sample_rates().start()
         except RuntimeError:
-            print "Source has no sample rates (wrong device arguments?)."
+            print("Source has no sample rates (wrong device arguments?).")
             sys.exit(1)
 
         # Set the antenna
@@ -150,18 +152,18 @@ class app_top_block(stdgui2.std_top_block, pubsub):
             gain_names = self.src.get_gain_names()
             for name in gain_names:
                 range = self.src.get_gain_range(name)
-                print "%s gain range: start %d stop %d step %d" % (name, range.start(), range.stop(), range.step())
+                print("%s gain range: start %d stop %d step %d" % (name, range.start(), range.stop(), range.step()))
 
         if options.gains:
             for tuple in options.gains.split(","):
                 name, gain = tuple.split(":")
                 gain = int(gain)
-                print "Setting gain %s to %d." % (name, gain)
+                print("Setting gain %s to %d." % (name, gain))
                 self.src.set_gain(gain, name)
 
         if self._verbose:
             rates = self.src.get_sample_rates()
-            print 'Supported sample rates %d-%d step %d.' % (rates.start(), rates.stop(), rates.step())
+            print('Supported sample rates %d-%d step %d.' % (rates.start(), rates.stop(), rates.step()))
 
         if options.center_freq is None:
             freq = self.src.get_center_freq()
@@ -537,14 +539,14 @@ class app_top_block(stdgui2.std_top_block, pubsub):
 
                 self.rec_file_name = self.record_to_filename()
 
-                print "Recording samples to ", self.rec_file_name
+                print("Recording samples to ", self.rec_file_name)
                 self.file_sink.open(self.rec_file_name);
             else:
                 self.sample_rate_text.Enable()
                 self.record_text.Enable()
 
                 self.file_sink.close()
-                print "Finished recording to", self.rec_file_name
+                print("Finished recording to", self.rec_file_name)
 
         forms.toggle_button(
             sizer=rec_hbox,
@@ -732,9 +734,9 @@ class app_top_block(stdgui2.std_top_block, pubsub):
             self.src.set_dc_offset( correction )
 
             if self._verbose:
-                print "Set DC offset to", correction
+                print("Set DC offset to", correction)
         except RuntimeError as ex:
-            print ex
+            print(ex)
 
     def set_iq_balance_mode(self, iq_balance_mode):
         if iq_balance_mode == 1:
@@ -761,16 +763,16 @@ class app_top_block(stdgui2.std_top_block, pubsub):
             self.src.set_iq_balance( correction )
 
             if self._verbose:
-                print "Set IQ balance to", correction
+                print("Set IQ balance to", correction)
         except RuntimeError as ex:
-            print ex
+            print(ex)
 
     def set_sample_rate(self, samp_rate):
         samp_rate = self.src.set_sample_rate(samp_rate)
         if hasattr(self.scope, 'set_sample_rate'):
             self.scope.set_sample_rate(samp_rate)
         if self._verbose:
-            print "Set sample rate to:", samp_rate
+            print("Set sample rate to:", samp_rate)
 
         try:
             self[BWIDTH_KEY] = self.set_bandwidth(samp_rate)
@@ -787,13 +789,13 @@ class app_top_block(stdgui2.std_top_block, pubsub):
             g = self[GAIN_RANGE_KEY(name)]
             gain = float(g.start()+g.stop())/2
             if self._verbose:
-                print "Using auto-calculated mid-point gain"
+                print("Using auto-calculated mid-point gain")
             self[GAIN_KEY(name)] = gain
             return
 
         gain = self.src.set_gain(gain, name)
         if self._verbose:
-            print "Set " + name + " gain to:", gain
+            print("Set " + name + " gain to:", gain)
 
     def set_bandwidth(self, bw):
         clipped_bw = self[BWIDTH_RANGE_KEY].clip(bw)
@@ -801,7 +803,7 @@ class app_top_block(stdgui2.std_top_block, pubsub):
             bw = self.src.set_bandwidth(clipped_bw)
 
             if self._verbose:
-                print "Set bandwidth to:", bw
+                print("Set bandwidth to:", bw)
 
         return bw
 
@@ -814,7 +816,7 @@ class app_top_block(stdgui2.std_top_block, pubsub):
             f = self[FREQ_RANGE_KEY]
             freq = float(f.start()+f.stop())/2.0
             if self._verbose:
-                print "Using auto-calculated mid-point frequency"
+                print("Using auto-calculated mid-point frequency")
             self[CENTER_FREQ_KEY] = freq
             return
 
@@ -825,22 +827,22 @@ class app_top_block(stdgui2.std_top_block, pubsub):
 
         if freq is not None:
             if self._verbose:
-                print "Set center frequency to", freq
+                print("Set center frequency to", freq)
         elif self._verbose:
-            print "Failed to set freq."
+            print("Failed to set freq.")
         return freq
 
     def set_freq_corr(self, ppm):
         if ppm is None:
             ppm = 0.0
             if self._verbose:
-                print "Using frequency corrrection of", ppm
+                print("Using frequency corrrection of", ppm)
             self[FREQ_CORR_KEY] = ppm
             return
 
         ppm = self.src.set_freq_corr(ppm)
         if self._verbose:
-            print "Set frequency correction to:", ppm
+            print("Set frequency correction to:", ppm)
 
 def main ():
     app = stdgui2.stdapp(app_top_block, "osmocom Spectrum Browser", nstatus=1)

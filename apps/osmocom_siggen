@@ -20,6 +20,8 @@
 # Boston, MA 02110-1301, USA.
 #
 
+from __future__ import absolute_import
+from __future__ import print_function
 from gnuradio import gr
 from gnuradio import analog
 from gnuradio.gr.pubsub import pubsub
@@ -117,8 +119,8 @@ class app_gui(pubsub):
         tone_bb_hbox.AddStretchSpacer()
         forms.radio_buttons(
             parent=self.panel, sizer=bb_vbox,
-            choices=osmocom_siggen.waveforms.keys(),
-            labels=osmocom_siggen.waveforms.values(),
+            choices=list(osmocom_siggen.waveforms.keys()),
+            labels=list(osmocom_siggen.waveforms.values()),
             ps=self.tb,
             key=osmocom_siggen.TYPE_KEY,
             style=wx.NO_BORDER | wx.RA_HORIZONTAL,
@@ -482,8 +484,8 @@ def main():
         # And run it
         app.MainLoop()
 
-    except RuntimeError, e:
-        print e
+    except RuntimeError as e:
+        print(e)
         sys.exit(1)
 
 # Make sure to create the top block (tb) within a function: That code
