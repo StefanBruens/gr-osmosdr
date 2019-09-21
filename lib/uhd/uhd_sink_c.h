@@ -23,7 +23,7 @@
 #include <gnuradio/hier_block2.h>
 #include <gnuradio/uhd/usrp_sink.h>
 
-#include "sink_iface.h"
+#include "../sink_iface.h"
 
 class uhd_sink_c;
 

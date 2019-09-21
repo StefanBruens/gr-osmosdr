@@ -28,7 +28,7 @@
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/condition_variable.hpp>
 
-#include "source_iface.h"
+#include "../source_iface.h"
 
 class rtl_source_c;
 typedef struct rtlsdr_dev rtlsdr_dev_t;

@@ -47,7 +47,7 @@
 
 #include "hackrf_sink_c.h"
 
-#include "arg_helpers.h"
+#include "../arg_helpers.h"
 
 using namespace boost::assign;
 

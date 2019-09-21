@@ -29,7 +29,7 @@
 
 #include "osmosdr/ranges.h"
 
-#include "source_iface.h"
+#include "../source_iface.h"
 
 class sdrplay_source_c;
 typedef struct sdrplay_dev sdrplay_dev_t;

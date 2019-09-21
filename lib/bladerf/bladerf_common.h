@@ -32,7 +32,7 @@
 #include <libbladeRF.h>
 
 #include "osmosdr/ranges.h"
-#include "arg_helpers.h"
+#include "../arg_helpers.h"
 
 #include "bladerf_compat.h"
 

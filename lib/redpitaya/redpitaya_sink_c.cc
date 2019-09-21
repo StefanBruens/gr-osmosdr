@@ -30,7 +30,7 @@
 
 #include <gnuradio/io_signature.h>
 
-#include "arg_helpers.h"
+#include "../arg_helpers.h"
 
 #include "redpitaya_sink_c.h"
 

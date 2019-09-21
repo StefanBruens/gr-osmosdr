@@ -24,7 +24,7 @@
 #include <gnuradio/blocks/file_source.h>
 #include <gnuradio/blocks/throttle.h>
 
-#include "source_iface.h"
+#include "../source_iface.h"
 
 class file_source_c;
 

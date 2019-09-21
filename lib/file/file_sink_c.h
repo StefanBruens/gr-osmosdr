@@ -24,7 +24,7 @@
 #include <gnuradio/blocks/file_sink.h>
 #include <gnuradio/blocks/throttle.h>
 
-#include "sink_iface.h"
+#include "../sink_iface.h"
 
 class file_sink_c;
 

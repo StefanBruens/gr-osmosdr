@@ -23,7 +23,7 @@
 
 #include <gnuradio/sync_block.h>
 
-#include "source_iface.h"
+#include "../source_iface.h"
 
 #include "redpitaya_common.h"
 

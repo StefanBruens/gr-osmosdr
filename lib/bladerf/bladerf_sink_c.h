@@ -22,7 +22,7 @@
 #define INCLUDED_BLADERF_SINK_C_H
 
 #include <gnuradio/sync_block.h>
-#include "sink_iface.h"
+#include "../sink_iface.h"
 #include "bladerf_common.h"
 
 #include "osmosdr/ranges.h"

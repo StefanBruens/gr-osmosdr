@@ -42,7 +42,7 @@
 #include "airspy_source_c.h"
 #include "airspy_fir_kernels.h"
 
-#include "arg_helpers.h"
+#include "../arg_helpers.h"
 
 using namespace boost::assign;
 

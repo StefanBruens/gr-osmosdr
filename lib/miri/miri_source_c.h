@@ -26,7 +26,7 @@
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/condition_variable.hpp>
 
-#include "source_iface.h"
+#include "../source_iface.h"
 
 class miri_source_c;
 typedef struct mirisdr_dev mirisdr_dev_t;

@@ -22,7 +22,7 @@
 #define INCLUDED_BLADERF_SOURCE_C_H
 
 #include <gnuradio/sync_block.h>
-#include "source_iface.h"
+#include "../source_iface.h"
 #include "bladerf_common.h"
 
 #include "osmosdr/ranges.h"

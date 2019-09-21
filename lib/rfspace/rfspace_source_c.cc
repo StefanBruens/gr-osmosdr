@@ -60,7 +60,7 @@
 
 #include <gnuradio/io_signature.h>
 
-#include "arg_helpers.h"
+#include "../arg_helpers.h"
 #include "rfspace_source_c.h"
 
 using namespace boost::assign;

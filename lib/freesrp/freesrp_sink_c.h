@@ -26,7 +26,7 @@
 #include <gnuradio/sync_block.h>
 
 #include "osmosdr/ranges.h"
-#include "sink_iface.h"
+#include "../sink_iface.h"
 
 #include "freesrp_common.h"
 #include "readerwriterqueue/readerwriterqueue.h"

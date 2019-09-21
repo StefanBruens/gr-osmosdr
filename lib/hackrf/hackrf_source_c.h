@@ -30,7 +30,7 @@
 
 #include <libhackrf/hackrf.h>
 
-#include "source_iface.h"
+#include "../source_iface.h"
 
 class hackrf_source_c;
 

@@ -26,7 +26,7 @@
 #include <gnuradio/sync_block.h>
 
 #include "osmosdr/ranges.h"
-#include "source_iface.h"
+#include "../source_iface.h"
 
 #include "freesrp_common.h"
 

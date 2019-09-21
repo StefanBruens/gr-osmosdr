@@ -37,7 +37,7 @@
 
 #include <gnuradio/io_signature.h>
 
-#include "arg_helpers.h"
+#include "../arg_helpers.h"
 #include "soapy_source_c.h"
 #include "soapy_common.h"
 #include "osmosdr/source.h"

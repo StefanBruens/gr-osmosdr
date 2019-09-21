@@ -34,7 +34,7 @@
 #include <boost/thread/condition_variable.hpp>
 
 #include "osmosdr/ranges.h"
-#include "source_iface.h"
+#include "../source_iface.h"
 #ifdef USE_ASIO
 using boost::asio::ip::tcp;
 using boost::asio::ip::udp;

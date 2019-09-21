@@ -30,7 +30,7 @@
 
 #include <libairspy/airspy.h>
 
-#include "source_iface.h"
+#include "../source_iface.h"
 
 class airspy_source_c;
 

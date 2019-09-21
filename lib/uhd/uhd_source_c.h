@@ -23,7 +23,7 @@
 #include <gnuradio/hier_block2.h>
 #include <gnuradio/uhd/usrp_source.h>
 
-#include "source_iface.h"
+#include "../source_iface.h"
 
 class uhd_source_c;
 

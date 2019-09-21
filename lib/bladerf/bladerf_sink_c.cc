@@ -38,7 +38,6 @@
 
 #include <volk/volk.h>
 
-#include "arg_helpers.h"
 #include "bladerf_sink_c.h"
 #include "osmosdr/sink.h"
 

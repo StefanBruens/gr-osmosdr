@@ -24,7 +24,7 @@
 
 //#include <uhd/property_tree.hpp>
 
-#include "arg_helpers.h"
+#include "../arg_helpers.h"
 
 #include "uhd_source_c.h"
 #include "osmosdr/source.h"

@@ -25,7 +25,7 @@
 #include <gnuradio/sync_block.h>
 
 #include "osmosdr/ranges.h"
-#include "sink_iface.h"
+#include "../sink_iface.h"
 
 class soapy_sink_c;
 

@@ -37,7 +37,7 @@
 
 #include <gnuradio/io_signature.h>
 
-#include "arg_helpers.h"
+#include "../arg_helpers.h"
 #include "soapy_sink_c.h"
 #include "soapy_common.h"
 #include <SoapySDR/Device.hpp>

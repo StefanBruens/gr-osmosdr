@@ -30,7 +30,7 @@
 #include <fcdproplus/fcdproplus.h>
 #endif
 
-#include "source_iface.h"
+#include "../source_iface.h"
 
 class fcd_source_c;
 

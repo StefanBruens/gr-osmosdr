@@ -22,7 +22,7 @@
 
 #include <gnuradio/sync_block.h>
 
-#include "source_iface.h"
+#include "../source_iface.h"
 
 class rtl_tcp_source_c;
 

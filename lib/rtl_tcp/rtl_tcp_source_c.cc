@@ -28,7 +28,7 @@
 #include <gnuradio/io_signature.h>
 
 #include "rtl_tcp_source_c.h"
-#include "arg_helpers.h"
+#include "../arg_helpers.h"
 
 #if defined(_WIN32)
 // if not posix, assume winsock

@@ -27,7 +27,7 @@
 #include <gnuradio/iqbalance/fix_cc.h>
 #endif
 
-#include <source_iface.h>
+#include "source_iface.h"
 
 #include <map>
 
