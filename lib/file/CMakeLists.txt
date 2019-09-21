@@ -21,7 +21,7 @@
 # This file included, use CMake directory variables
 ########################################################################
 
-add_library(file OBJECT
+add_library(file STATIC
     file_source_c.cc
     file_sink_c.cc
 )

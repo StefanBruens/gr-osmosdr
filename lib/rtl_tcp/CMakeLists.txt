@@ -21,7 +21,7 @@
 # Create linkable target
 ########################################################################
 
-add_library(rtl_tcp OBJECT
+add_library(rtl_tcp STATIC
     rtl_tcp_source_c.cc
 )
 

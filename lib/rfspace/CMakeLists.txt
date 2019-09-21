@@ -27,7 +27,7 @@ find_package(Boost COMPONENTS chrono)
 # Create linkable target
 ########################################################################
 
-add_library(rfspace OBJECT
+add_library(rfspace STATIC
     rfspace_source_c.cc
 )
 

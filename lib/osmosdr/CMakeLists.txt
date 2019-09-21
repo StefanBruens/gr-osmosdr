@@ -21,7 +21,7 @@
 # Create linkable target
 ########################################################################
 
-add_library(osmosdr OBJECT
+add_library(osmosdr STATIC
     osmosdr_src_c.cc
 )
 

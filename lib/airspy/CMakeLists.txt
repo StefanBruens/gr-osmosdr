@@ -21,7 +21,7 @@
 # Create linkable target
 ########################################################################
 
-add_library(airspy OBJECT
+add_library(airspy STATIC
     airspy_source_c.cc
 )
 

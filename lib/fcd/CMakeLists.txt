@@ -21,7 +21,7 @@
 # Create linkable target
 ########################################################################
 
-add_library(fcd OBJECT
+add_library(fcd STATIC
     fcd_source_c.cc
 )
 

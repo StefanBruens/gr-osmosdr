@@ -21,7 +21,7 @@
 # Create linkable target
 ########################################################################
 
-add_library(bladerf OBJECT
+add_library(bladerf STATIC
     bladerf_source_c.cc
     bladerf_sink_c.cc
     bladerf_common.cc

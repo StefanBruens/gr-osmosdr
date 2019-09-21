@@ -21,7 +21,7 @@
 # Create linkable target
 ########################################################################
 
-add_library(miri OBJECT
+add_library(miri STATIC
     miri_source_c.cc
 )
 

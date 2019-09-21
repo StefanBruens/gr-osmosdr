@@ -21,7 +21,7 @@
 # Create linkable target
 ########################################################################
 
-add_library(rtl OBJECT
+add_library(rtl STATIC
     rtl_source_c.cc
 )
 

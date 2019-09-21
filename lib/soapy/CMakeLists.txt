@@ -21,7 +21,7 @@
 # Create linkable target
 ########################################################################
 
-add_library(soapy OBJECT
+add_library(soapy STATIC
     soapy_common.cc
     soapy_source_c.cc
     soapy_sink_c.cc

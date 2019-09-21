@@ -21,7 +21,7 @@
 # Create linkable target
 ########################################################################
 
-add_library(uhd OBJECT
+add_library(uhd STATIC
     uhd_sink_c.cc
     uhd_source_c.cc
 )

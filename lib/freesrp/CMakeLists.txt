@@ -21,7 +21,7 @@
 # Create linkable target
 ########################################################################
 
-add_library(freesrp OBJECT
+add_library(freesrp STATIC
     freesrp_common.cc
     freesrp_source_c.cc
     freesrp_sink_c.cc

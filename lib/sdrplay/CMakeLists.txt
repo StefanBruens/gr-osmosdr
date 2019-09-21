@@ -21,7 +21,7 @@
 # Create linkable target
 ########################################################################
 
-add_library(sdrplay OBJECT
+add_library(sdrplay STATIC
     sdrplay_source_c.cc
 )
 

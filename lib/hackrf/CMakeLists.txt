@@ -21,7 +21,7 @@
 # Create linkable target
 ########################################################################
 
-add_library(hackrf OBJECT
+add_library(hackrf STATIC
     hackrf_source_c.cc
     hackrf_sink_c.cc
 )

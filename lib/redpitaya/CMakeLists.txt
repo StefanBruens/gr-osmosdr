@@ -21,7 +21,7 @@
 # Create linkable target
 ########################################################################
 
-add_library(redpitaya OBJECT
+add_library(redpitaya STATIC
     redpitaya_source_c.cc
     redpitaya_sink_c.cc
     redpitaya_common.cc
