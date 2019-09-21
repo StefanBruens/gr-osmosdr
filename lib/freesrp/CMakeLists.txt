@@ -18,22 +18,21 @@
 # Boston, MA 02110-1301, USA.
 
 ########################################################################
-# This file included, use CMake directory variables
+# Create linkable target
 ########################################################################
 
-include_directories(
+add_library(freesrp OBJECT
+    freesrp_common.cc
+    freesrp_source_c.cc
+    freesrp_sink_c.cc
+)
+
+target_include_directories(freesrp
+   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${LIBFREESRP_INCLUDE_DIRS}
 )
 
-set(freesrp_srcs
-    ${CMAKE_CURRENT_SOURCE_DIR}/freesrp_common.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/freesrp_source_c.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/freesrp_sink_c.cc
+target_link_libraries(freesrp
+   ${LIBFREESRP_LIBRARIES}
 )
-
-########################################################################
-# Append gnuradio-osmosdr library sources
-########################################################################
-list(APPEND gr_osmosdr_srcs ${freesrp_srcs})
-list(APPEND gr_osmosdr_libs ${LIBFREESRP_LIBRARIES})

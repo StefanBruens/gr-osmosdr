@@ -18,20 +18,25 @@
 # Boston, MA 02110-1301, USA.
 
 ########################################################################
-# This file included, use CMake directory variables
+# Find extra Boost components
 ########################################################################
 
-include_directories(
+find_package(Boost COMPONENTS chrono)
+
+########################################################################
+# Create linkable target
+########################################################################
+
+add_library(rfspace OBJECT
+    rfspace_source_c.cc
+)
+
+target_link_libraries(rfspace
+    Boost::chrono
+)
+
+target_include_directories(rfspace
+   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
-
-set(rfspace_srcs
-    ${CMAKE_CURRENT_SOURCE_DIR}/rfspace_source_c.cc
-)
-
-########################################################################
-# Append gnuradio-osmosdr library sources
-########################################################################
-list(APPEND gr_osmosdr_srcs ${rfspace_srcs})
-#list(APPEND gr_osmosdr_libs ...)
 

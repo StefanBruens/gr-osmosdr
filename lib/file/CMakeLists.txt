@@ -21,18 +21,16 @@
 # This file included, use CMake directory variables
 ########################################################################
 
-include_directories(
+add_library(file OBJECT
+    file_source_c.cc
+    file_sink_c.cc
+)
+
+target_include_directories(file
+   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-set(file_srcs
-    ${CMAKE_CURRENT_SOURCE_DIR}/file_source_c.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/file_sink_c.cc
+target_link_libraries(file
+   gnuradio::gnuradio-blocks
 )
-
-########################################################################
-# Append gnuradio-osmosdr library sources
-########################################################################
-list(APPEND gr_osmosdr_srcs ${file_srcs})
-#list(APPEND gr_osmosdr_libs ${GNURADIO_BLOCKS_LIBRARIES})
-

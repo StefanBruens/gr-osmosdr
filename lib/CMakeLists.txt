@@ -25,26 +25,19 @@ include(GrPlatform) #define LIB_SUFFIX
 include(GrMiscUtils)
 include(GrComponent)
 
-########################################################################
-# Helpful Macros
-########################################################################
-MACRO(GR_OSMOSDR_APPEND_SRCS)
-    LIST(APPEND gr_osmosdr_srcs ${ARGV})
-ENDMACRO(GR_OSMOSDR_APPEND_SRCS)
-
-MACRO(GR_OSMOSDR_APPEND_LIBS)
-    LIST(APPEND gr_osmosdr_libs ${ARGV})
-ENDMACRO(GR_OSMOSDR_APPEND_LIBS)
-
-GR_OSMOSDR_APPEND_SRCS(
+list(APPEND osmosdr_sources
     source_impl.cc
     sink_impl.cc
     ranges.cc
     device.cc
     time_spec.cc
 )
+set(osmosdr_sources "${osmosdr_sources}" PARENT_SCOPE)
 
-GR_OSMOSDR_APPEND_LIBS(
+add_library(gnuradio-osmosdr SHARED
+    "${osmosdr_sources}"
+)
+target_link_libraries(gnuradio-osmosdr PUBLIC
     gnuradio::gnuradio-runtime
     gnuradio::gnuradio-pmt
     gnuradio::gnuradio-blocks
@@ -93,7 +86,7 @@ CHECK_CXX_SOURCE_COMPILES("
 IF(HAVE_CLOCK_GETTIME)
     MESSAGE(STATUS "  High resolution timing supported through clock_gettime.")
     SET(TIME_SPEC_DEFS HAVE_CLOCK_GETTIME)
-    GR_OSMOSDR_APPEND_LIBS("-lrt")
+    target_link_libraries(gnuradio-osmosdr PRIVATE "rt")
 ELSEIF(HAVE_MACH_ABSOLUTE_TIME)
     MESSAGE(STATUS "  High resolution timing supported through mach_absolute_time.")
     SET(TIME_SPEC_DEFS HAVE_MACH_ABSOLUTE_TIME)
@@ -117,7 +110,7 @@ GR_REGISTER_COMPONENT("Osmocom IQ Imbalance Correction" ENABLE_IQBALANCE GNURADI
 if(ENABLE_IQBALANCE)
 add_definitions(-DHAVE_IQBALANCE=1)
 include_directories(${GNURADIO_IQBALANCE_INCLUDE_DIRS})
-GR_OSMOSDR_APPEND_LIBS(${GNURADIO_IQBALANCE_LIBRARIES})
+target_link_libraries(gnuradio-osmosdr PRIVATE ${GNURADIO_IQBALANCE_LIBRARIES})
 endif(ENABLE_IQBALANCE)
 
 ########################################################################
@@ -126,6 +119,7 @@ endif(ENABLE_IQBALANCE)
 GR_REGISTER_COMPONENT("sysmocom OsmoSDR" ENABLE_OSMOSDR LIBOSMOSDR_FOUND)
 if(ENABLE_OSMOSDR)
 add_subdirectory(osmosdr)
+target_link_libraries(gnuradio-osmosdr PRIVATE osmosdr)
 endif(ENABLE_OSMOSDR)
 
 ########################################################################
@@ -141,6 +135,7 @@ add_definitions(-DHAVE_FCDPP=1)
 endif(ENABLE_FCDPP)
 if(ENABLE_FCD OR ENABLE_FCDPP)
 add_subdirectory(fcd)
+target_link_libraries(gnuradio-osmosdr PRIVATE fcd)
 endif(ENABLE_FCD OR ENABLE_FCDPP)
 
 ########################################################################
@@ -149,6 +144,7 @@ endif(ENABLE_FCD OR ENABLE_FCDPP)
 GR_REGISTER_COMPONENT("IQ File Source & Sink" ENABLE_FILE GNURADIO_BLOCKS_FOUND)
 if(ENABLE_FILE)
 add_subdirectory(file)
+target_link_libraries(gnuradio-osmosdr PRIVATE file)
 endif(ENABLE_FILE)
 
 ########################################################################
@@ -157,6 +153,7 @@ endif(ENABLE_FILE)
 GR_REGISTER_COMPONENT("Osmocom RTLSDR" ENABLE_RTL LIBRTLSDR_FOUND)
 if(ENABLE_RTL)
 add_subdirectory(rtl)
+target_link_libraries(gnuradio-osmosdr PRIVATE rtl)
 endif(ENABLE_RTL)
 
 ########################################################################
@@ -165,6 +162,7 @@ endif(ENABLE_RTL)
 GR_REGISTER_COMPONENT("RTLSDR TCP Client" ENABLE_RTL_TCP GNURADIO_BLOCKS_FOUND)
 if(ENABLE_RTL_TCP)
 add_subdirectory(rtl_tcp)
+target_link_libraries(gnuradio-osmosdr PRIVATE rtl_tcp)
 endif(ENABLE_RTL_TCP)
 
 ########################################################################
@@ -173,6 +171,7 @@ endif(ENABLE_RTL_TCP)
 GR_REGISTER_COMPONENT("Ettus USRP Devices" ENABLE_UHD UHD_FOUND GNURADIO_UHD_FOUND)
 if(ENABLE_UHD)
 add_subdirectory(uhd)
+target_link_libraries(gnuradio-osmosdr PRIVATE uhd)
 endif(ENABLE_UHD)
 
 ########################################################################
@@ -181,6 +180,7 @@ endif(ENABLE_UHD)
 GR_REGISTER_COMPONENT("Osmocom MiriSDR" ENABLE_MIRI LIBMIRISDR_FOUND)
 if(ENABLE_MIRI)
 add_subdirectory(miri)
+target_link_libraries(gnuradio-osmosdr PRIVATE miri)
 endif(ENABLE_MIRI)
 
 ########################################################################
@@ -190,6 +190,7 @@ if(ENABLE_NONFREE)
 GR_REGISTER_COMPONENT("SDRplay RSP (NONFREE)" ENABLE_SDRPLAY LIBSDRPLAY_FOUND)
 if(ENABLE_SDRPLAY)
 add_subdirectory(sdrplay)
+target_link_libraries(gnuradio-osmosdr PRIVATE sdrplay)
 endif(ENABLE_SDRPLAY)
 endif(ENABLE_NONFREE)
 
@@ -199,6 +200,7 @@ endif(ENABLE_NONFREE)
 GR_REGISTER_COMPONENT("HackRF & rad1o Badge" ENABLE_HACKRF LIBHACKRF_FOUND)
 if(ENABLE_HACKRF)
 add_subdirectory(hackrf)
+target_link_libraries(gnuradio-osmosdr PRIVATE hackrf)
 endif(ENABLE_HACKRF)
 
 ########################################################################
@@ -207,6 +209,7 @@ endif(ENABLE_HACKRF)
 GR_REGISTER_COMPONENT("nuand bladeRF" ENABLE_BLADERF LIBBLADERF_FOUND)
 if(ENABLE_BLADERF)
 add_subdirectory(bladerf)
+target_link_libraries(gnuradio-osmosdr PRIVATE bladerf)
 endif(ENABLE_BLADERF)
 
 ########################################################################
@@ -215,6 +218,7 @@ endif(ENABLE_BLADERF)
 GR_REGISTER_COMPONENT("RFSPACE Receivers" ENABLE_RFSPACE)
 if(ENABLE_RFSPACE)
 add_subdirectory(rfspace)
+target_link_libraries(gnuradio-osmosdr PRIVATE rfspace)
 endif(ENABLE_RFSPACE)
 
 ########################################################################
@@ -223,6 +227,7 @@ endif(ENABLE_RFSPACE)
 GR_REGISTER_COMPONENT("AIRSPY Receiver" ENABLE_AIRSPY LIBAIRSPY_FOUND)
 if(ENABLE_AIRSPY)
 add_subdirectory(airspy)
+target_link_libraries(gnuradio-osmosdr PRIVATE airspy)
 endif(ENABLE_AIRSPY)
 
 ########################################################################
@@ -231,6 +236,7 @@ endif(ENABLE_AIRSPY)
 GR_REGISTER_COMPONENT("SoapySDR support" ENABLE_SOAPY SoapySDR_FOUND)
 if(ENABLE_SOAPY)
 add_subdirectory(soapy)
+target_link_libraries(gnuradio-osmosdr PRIVATE soapy)
 endif(ENABLE_SOAPY)
 
 ########################################################################
@@ -239,6 +245,7 @@ endif(ENABLE_SOAPY)
 GR_REGISTER_COMPONENT("Red Pitaya SDR" ENABLE_REDPITAYA)
 if(ENABLE_REDPITAYA)
 add_subdirectory(redpitaya)
+target_link_libraries(gnuradio-osmosdr PRIVATE redpitaya)
 endif(ENABLE_REDPITAYA)
 
 ########################################################################
@@ -247,6 +254,7 @@ endif(ENABLE_REDPITAYA)
 GR_REGISTER_COMPONENT("FreeSRP support" ENABLE_FREESRP LIBFREESRP_FOUND)
 if(ENABLE_FREESRP)
 add_subdirectory(freesrp)
+target_link_libraries(gnuradio-osmosdr PRIVATE freesrp)
 endif(ENABLE_FREESRP)
 
 ########################################################################
@@ -270,13 +278,11 @@ IF(MSVC)
         ${CMAKE_CURRENT_BINARY_DIR}/gnuradio-osmosdr.rc
     @ONLY)
 
-    GR_OSMOSDR_APPEND_SRCS(${CMAKE_CURRENT_BINARY_DIR}/gnuradio-osmosdr.rc)
+    target_sources(gnuradio-osmosdr ${CMAKE_CURRENT_BINARY_DIR}/gnuradio-osmosdr.rc)
 ENDIF(MSVC)
 
 ########################################################################
 # Setup libgnuradio-osmosdr library
 ########################################################################
-ADD_LIBRARY(gnuradio-osmosdr SHARED ${gr_osmosdr_srcs})
-TARGET_LINK_LIBRARIES(gnuradio-osmosdr ${gr_osmosdr_libs})
 SET_TARGET_PROPERTIES(gnuradio-osmosdr PROPERTIES DEFINE_SYMBOL "gnuradio_osmosdr_EXPORTS")
 GR_LIBRARY_FOO(gnuradio-osmosdr)

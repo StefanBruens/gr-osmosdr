@@ -18,20 +18,19 @@
 # Boston, MA 02110-1301, USA.
 
 ########################################################################
-# This file included, use CMake directory variables
+# Create linkable target
 ########################################################################
 
-include_directories(
+add_library(osmosdr OBJECT
+    osmosdr_src_c.cc
+)
+
+target_include_directories(osmosdr
+   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${LIBOSMOSDR_INCLUDE_DIRS}
 )
 
-set(osmosdr_srcs
-    ${CMAKE_CURRENT_SOURCE_DIR}/osmosdr_src_c.cc
+target_link_libraries(osmosdr
+    ${LIBOSMOSDR_LIBRARIES}
 )
-
-########################################################################
-# Append gnuradio-osmosdr library sources
-########################################################################
-list(APPEND gr_osmosdr_srcs ${osmosdr_srcs})
-list(APPEND gr_osmosdr_libs ${LIBOSMOSDR_LIBRARIES})

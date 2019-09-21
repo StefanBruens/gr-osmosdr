@@ -18,23 +18,21 @@
 # Boston, MA 02110-1301, USA.
 
 ########################################################################
-# This file included, use CMake directory variables
+# Create linkable target
 ########################################################################
 
-include_directories(
+add_library(bladerf OBJECT
+    bladerf_source_c.cc
+    bladerf_sink_c.cc
+    bladerf_common.cc
+)
+
+target_include_directories(bladerf
+   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ${LIBBLADERF_INCLUDE_DIRS}
-    ${VOLK_INCLUDE_DIRS}
+    ${LIBAIRSPY_INCLUDE_DIRS}
 )
 
-set(bladerf_srcs
-    ${CMAKE_CURRENT_SOURCE_DIR}/bladerf_source_c.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/bladerf_sink_c.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/bladerf_common.cc
+target_link_libraries(bladerf
+   ${LIBBLADERF_LIBRARIES}
 )
-
-########################################################################
-# Append gnuradio-osmosdr library sources
-########################################################################
-list(APPEND gr_osmosdr_srcs ${bladerf_srcs})
-list(APPEND gr_osmosdr_libs ${LIBBLADERF_LIBRARIES} ${VOLK_LIBRARIES})

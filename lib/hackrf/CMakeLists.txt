@@ -18,17 +18,22 @@
 # Boston, MA 02110-1301, USA.
 
 ########################################################################
-# This file included, use CMake directory variables
+# Create linkable target
 ########################################################################
 
-include_directories(
+add_library(hackrf OBJECT
+    hackrf_source_c.cc
+    hackrf_sink_c.cc
+)
+
+target_include_directories(hackrf
+   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${LIBHACKRF_INCLUDE_DIRS}
 )
 
-set(hackrf_srcs
-    ${CMAKE_CURRENT_SOURCE_DIR}/hackrf_source_c.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/hackrf_sink_c.cc
+target_link_libraries(hackrf
+   ${LIBHACKRF_LIBRARIES}
 )
 
 INCLUDE(CheckFunctionExists)
@@ -39,9 +44,3 @@ if(LIBHACKRF_HAVE_DEVICE_LIST)
     message(STATUS "HackRF multiple device support enabled")
     add_definitions(-DLIBHACKRF_HAVE_DEVICE_LIST)
 endif(LIBHACKRF_HAVE_DEVICE_LIST)
-
-########################################################################
-# Append gnuradio-osmosdr library sources
-########################################################################
-list(APPEND gr_osmosdr_srcs ${hackrf_srcs})
-list(APPEND gr_osmosdr_libs ${LIBHACKRF_LIBRARIES})

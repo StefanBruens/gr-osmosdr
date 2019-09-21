@@ -18,20 +18,19 @@
 # Boston, MA 02110-1301, USA.
 
 ########################################################################
-# This file included, use CMake directory variables
+# Create linkable target
 ########################################################################
 
-include_directories(
+add_library(miri OBJECT
+    miri_source_c.cc
+)
+
+target_include_directories(miri
+   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${LIBMIRISDR_INCLUDE_DIRS}
 )
 
-set(mirisdr_srcs
-    ${CMAKE_CURRENT_SOURCE_DIR}/miri_source_c.cc
+target_link_libraries(miri
+   ${LIBMIRISDR_LIBRARIES}
 )
-
-########################################################################
-# Append gnuradio-mirisdr library sources
-########################################################################
-list(APPEND gr_osmosdr_srcs ${mirisdr_srcs})
-list(APPEND gr_osmosdr_libs ${LIBMIRISDR_LIBRARIES})

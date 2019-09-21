@@ -18,20 +18,21 @@
 # Boston, MA 02110-1301, USA.
 
 ########################################################################
-# This file included, use CMake directory variables
+# Create linkable target
 ########################################################################
 
-include_directories(
+add_library(airspy OBJECT
+    airspy_source_c.cc
+)
+
+target_include_directories(airspy
+   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${LIBAIRSPY_INCLUDE_DIRS}
 )
 
-set(airspy_srcs
-    ${CMAKE_CURRENT_SOURCE_DIR}/airspy_source_c.cc
+target_link_libraries(airspy
+   ${LIBAIRSPY_LIBRARIES}
+   gnuradio::gnuradio-blocks
+   gnuradio::gnuradio-filter
 )
-
-########################################################################
-# Append gnuradio-osmosdr library sources
-########################################################################
-list(APPEND gr_osmosdr_srcs ${airspy_srcs})
-list(APPEND gr_osmosdr_libs ${LIBAIRSPY_LIBRARIES} ${GNURADIO_FILTER_LIBRARIES} ${GNURADIO_BLOCKS_LIBRARIES})

@@ -18,22 +18,21 @@
 # Boston, MA 02110-1301, USA.
 
 ########################################################################
-# This file included, use CMake directory variables
+# Create linkable target
 ########################################################################
 
-include_directories(
+add_library(soapy OBJECT
+    soapy_common.cc
+    soapy_source_c.cc
+    soapy_sink_c.cc
+)
+
+target_include_directories(soapy
+   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${SoapySDR_INCLUDE_DIRS}
 )
 
-set(soapy_srcs
-    ${CMAKE_CURRENT_SOURCE_DIR}/soapy_common.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/soapy_source_c.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/soapy_sink_c.cc
+target_link_libraries(soapy
+   ${SoapySDR_LIBRARIES}
 )
-
-########################################################################
-# Append gnuradio-osmosdr library sources
-########################################################################
-list(APPEND gr_osmosdr_srcs ${soapy_srcs})
-list(APPEND gr_osmosdr_libs ${SoapySDR_LIBRARIES})

@@ -18,32 +18,23 @@
 # Boston, MA 02110-1301, USA.
 
 ########################################################################
-# This file included, use CMake directory variables
+# Create linkable target
 ########################################################################
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-
-if(ENABLE_FCD)
-include_directories(${GNURADIO_FCD_INCLUDE_DIRS})
-endif(ENABLE_FCD)
-
-if(ENABLE_FCDPP)
-include_directories(${GNURADIO_FCDPP_INCLUDE_DIRS})
-endif(ENABLE_FCDPP)
-
-set(fcd_srcs
-    ${CMAKE_CURRENT_SOURCE_DIR}/fcd_source_c.cc
+add_library(fcd OBJECT
+    fcd_source_c.cc
 )
 
-########################################################################
-# Append gnuradio-osmosdr library sources
-########################################################################
-list(APPEND gr_osmosdr_srcs ${fcd_srcs})
+target_include_directories(fcd
+   PRIVATE
+   ${CMAKE_CURRENT_SOURCE_DIR})
 
 if(ENABLE_FCD)
-list(APPEND gr_osmosdr_libs ${GNURADIO_FCD_LIBRARIES})
+target_link_libraries(fcd ${GNURADIO_FCD_LIBRARIES})
+target_include_directories(fcd PRIVATE ${GNURADIO_FCD_INCLUDE_DIRS})
 endif(ENABLE_FCD)
 
 if(ENABLE_FCDPP)
-list(APPEND gr_osmosdr_libs ${GNURADIO_FCDPP_LIBRARIES})
+target_link_libraries(fcd ${GNURADIO_FCDPP_LIBRARIES})
+target_include_directories(fcd PRIVATE ${GNURADIO_FCDPP_INCLUDE_DIRS})
 endif(ENABLE_FCDPP)

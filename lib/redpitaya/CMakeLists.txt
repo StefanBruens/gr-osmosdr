@@ -18,21 +18,16 @@
 # Boston, MA 02110-1301, USA.
 
 ########################################################################
-# This file included, use CMake directory variables
+# Create linkable target
 ########################################################################
 
-include_directories(
+add_library(redpitaya OBJECT
+    redpitaya_source_c.cc
+    redpitaya_sink_c.cc
+    redpitaya_common.cc
+)
+
+target_include_directories(redpitaya
+   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
-
-set(redpitaya_srcs
-    ${CMAKE_CURRENT_SOURCE_DIR}/redpitaya_source_c.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/redpitaya_sink_c.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/redpitaya_common.cc
-)
-
-########################################################################
-# Append gnuradio-osmosdr library sources
-########################################################################
-list(APPEND gr_osmosdr_srcs ${redpitaya_srcs})
-#list(APPEND gr_osmosdr_libs ${GNURADIO_BLOCKS_LIBRARIES})
